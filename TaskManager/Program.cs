@@ -8,114 +8,202 @@ namespace TaskManager
         {
             Console.WriteLine("TASK MANAGER");
 
-            // Task Manager program that allows user to view, add, and delete tasks
-
-            // example task list
-            string task1 = "Buy Groceries";
-            string task2 = "Pay Bills";
-            string task3 = "Do Laundry";
-            string task4 = "Clean House";
-            string task5 = "Wash Dishes";
+            // Sample tasks
+            string[] taskList = new string[5]
+            {
+                "Buy groceries",
+                "Pay bills",
+                "Do laundry",
+                "Clean house",
+                "Wash Dishes"
+            };
             int taskCount = 5;
 
-            while (true)
+            bool isRunning = true;
+            while (isRunning)
             {
-                Console.WriteLine("\nOPTIONS:");
-                Console.WriteLine("1 - View Tasks");
-                Console.WriteLine("2 - Add Task");
-                Console.WriteLine("3 - Delete Task");
-                Console.WriteLine("4 - Exit");
-                Console.Write("Enter option: ");
+                DisplayMenuOptions();
 
-                int choice = Convert.ToInt16(Console.ReadLine());
+                int selectedOption = ParseUserSelection();
+                if (selectedOption == 0) continue; 
 
-                switch (choice)
+                switch (selectedOption)
                 {
-                    // View tasks
                     case 1:
-                        Console.WriteLine("\nTASKS:");
-                        if (taskCount == 0)
-                        {
-                            Console.WriteLine("No tasks.");
-                        }
-                        else
-                        {
-                            if (taskCount >= 1) Console.WriteLine($"1. {task1}");
-                            if (taskCount >= 2) Console.WriteLine($"2. {task2}");
-                            if (taskCount >= 3) Console.WriteLine($"3. {task3}");
-                            if (taskCount >= 4) Console.WriteLine($"4. {task4}");
-                            if (taskCount >= 5) Console.WriteLine($"5. {task5}");
-                        }
+                        DisplayTaskList(taskList, taskCount);
                         break;
-                    // Add task
                     case 2:
-                        if (taskCount < 5)
+                        if (CreateNewTask(taskList, ref taskCount))
                         {
-                            Console.Write("Enter task: ");
-                            string newTask = Console.ReadLine();
-
-                            taskCount++;
-                            if (taskCount == 1) task1 = newTask;
-                            if (taskCount == 2) task2 = newTask;
-                            if (taskCount == 3) task3 = newTask;
-                            if (taskCount == 4) task4 = newTask;
-                            if (taskCount == 5) task4 = newTask;
-
                             Console.WriteLine("Task added.");
                         }
-                        else
-                        {
-                            Console.WriteLine("Task list full.");
-                        }
                         break;
-                    // Delete task
                     case 3:
-                        Console.Write("Enter task number to delete: ");
-                        int taskNum = Convert.ToInt32(Console.ReadLine());
-
-                        if (taskNum >= 1 && taskNum <= taskCount)
+                        if (RemoveExistingTask(taskList, ref taskCount))
                         {
-                            if (taskNum == 1)
-                            {
-                                task1 = task2;
-                                task2 = task3;
-                                task3 = task4;
-                                task4 = task5;
-                            }
-                            else if (taskNum == 2)
-                            {
-                                task2 = task3;
-                                task3 = task4;
-                                task4 = task5;
-                            }
-                            else if (taskNum == 3)
-                            {
-                                task3 = task4;
-                                task4 = task5;
-                            }
-                            else if (taskNum == 4)
-                            {
-                                task4 = task5;
-                            }
-
-                            taskCount--;
                             Console.WriteLine("Task deleted.");
                         }
-                        else
-                        {
-                            Console.WriteLine("Invalid task number.");
-                        }
                         break;
-
-                    case 4: // Exit
+                    case 4:
                         Console.WriteLine("Hope you did your tasks!");
-                        return;
-
+                        isRunning = false;
+                        break;
                     default:
                         Console.WriteLine("Invalid option.");
                         break;
                 }
             }
         }
+
+        static void DisplayMenuOptions()
+        {
+            Console.WriteLine("\nOPTIONS:");
+            Console.WriteLine("1 - View Tasks");
+            Console.WriteLine("2 - Add Task");
+            Console.WriteLine("3 - Delete Task");
+            Console.WriteLine("4 - Exit");
+            Console.Write("Enter option: ");
+        }
+
+        static int ParseUserSelection()
+        {
+            try
+            {
+                return Convert.ToInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("Invalid input. Try again.");
+                return 0;
+            }
+        }
+
+  
+        static void DisplayTaskList(string[] taskList, int taskCount)
+        {
+            Console.WriteLine("\nTASKS:");
+
+            if (taskCount == 0)
+            {
+                Console.WriteLine("No tasks.");
+                return;
+            }
+
+            for (int i = 0; i < taskCount; i++)
+            {
+                Console.WriteLine($"{i + 1}. {taskList[i]}");
+            }
+        }
+
+     
+        static bool CreateNewTask(string[] taskList, ref int taskCount)
+        {
+            
+            if (taskCount >= taskList.Length)
+            {
+                Console.WriteLine("Task list full.");
+                return false;
+            }
+
+            Console.Write("Enter task: ");
+            string newTask = Console.ReadLine();
+
+            
+            if (string.IsNullOrWhiteSpace(newTask))
+            {
+                Console.WriteLine("Task cannot be empty.");
+                return false;
+            }
+
+            taskList[taskCount] = newTask;
+            taskCount++;
+            return true;
+        }
+
+        static bool RemoveExistingTask(string[] taskList, ref int taskCount)
+        {
+            
+            if (taskCount == 0)
+            {
+                Console.WriteLine("No tasks to delete.");
+                return false;
+            }
+
+            Console.Write("Enter task number to delete: ");
+
+            
+            int taskNumber;
+            try
+            {
+                taskNumber = Convert.ToInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("Invalid input.");
+                return false;
+            }
+
+           
+            if (taskNumber < 1 || taskNumber > taskCount)
+            {
+                Console.WriteLine("Invalid task number.");
+                return false;
+            }
+
+            
+            ReorganizeTasksAfterRemoval(taskList, taskNumber - 1, taskCount);
+            taskCount--;
+            return true;
+        }
+
+     
+        static void ReorganizeTasksAfterRemoval(string[] taskList, int removedIndex, int taskCount)
+        {
+            
+            if (removedIndex < 0 || removedIndex >= taskCount)
+            {
+                return;
+            }
+
+            
+            for (int i = removedIndex; i < taskCount - 1; i++)
+            {
+                taskList[i] = taskList[i + 1];
+            }
+        }
     }
 }
+
+/*
+ Refactored the whole code to make it more readable and maintainable
+
+Key Improvements
+
+1.) Split functionality into dedicated methods instead of keeping everything in Main
+ 
+- Each operation (display, add, delete) has its own method
+
+2.) Used better data structure
+
+- Replaced individual variables with an array to store tasks
+
+3.) Added proper error handling
+
+- Methods check for problems before proceeding
+- Return values indicate success/failure
+
+4.) Improved naming
+
+- Used descriptive verb-noun names (CreateNewTask, RemoveExistingTask)
+- Consistent naming patterns throughout the code
+
+Methods Summary
+
+DisplayMenuOptions: Displays the menu choices   
+ParseUserSelection: Gets and validates user input
+DisplayTaskList: Shows all current tasks
+CreateNewTask: Adds a new task if there's room
+RemoveExistingTask: Deletes a task and handles validation
+ReorganizeTasksAfterRemoval: Shifts tasks to fill gaps after deletion
+ 
+ */
