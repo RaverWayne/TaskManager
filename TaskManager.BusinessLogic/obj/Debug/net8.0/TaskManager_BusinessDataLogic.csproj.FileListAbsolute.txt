@@ -1,0 +1,12 @@
+C:\Users\Weng\source\repos\TaskManager\TaskManager.BusinessLogic\bin\Debug\net8.0\TaskManager_BusinessDataLogic.deps.json
+C:\Users\Weng\source\repos\TaskManager\TaskManager.BusinessLogic\bin\Debug\net8.0\TaskManager_BusinessDataLogic.dll
+C:\Users\Weng\source\repos\TaskManager\TaskManager.BusinessLogic\bin\Debug\net8.0\TaskManager_BusinessDataLogic.pdb
+C:\Users\Weng\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net8.0\TaskManager_BusinessDataLogic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Weng\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net8.0\TaskManager_BusinessDataLogic.AssemblyInfoInputs.cache
+C:\Users\Weng\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net8.0\TaskManager_BusinessDataLogic.AssemblyInfo.cs
+C:\Users\Weng\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net8.0\TaskManager_BusinessDataLogic.csproj.CoreCompileInputs.cache
+C:\Users\Weng\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net8.0\TaskManager_BusinessDataLogic.sourcelink.json
+C:\Users\Weng\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net8.0\TaskManager_BusinessDataLogic.dll
+C:\Users\Weng\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net8.0\refint\TaskManager_BusinessDataLogic.dll
+C:\Users\Weng\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net8.0\TaskManager_BusinessDataLogic.pdb
+C:\Users\Weng\source\repos\TaskManager\TaskManager.BusinessLogic\obj\Debug\net8.0\ref\TaskManager_BusinessDataLogic.dll
